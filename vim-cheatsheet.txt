@@ -1,0 +1,691 @@
+############################################################################################
+############################################################################################
+##   __     _____ __  __     ____ _   _ _____    _  _____ ____  _   _ _____ _____ _____   ##
+##   \ \   / /_ _|  \/  |   / ___| | | | ____|  / \|_   _/ ___|| | | | ____| ____|_   _|  ##
+##    \ \ / / | || |\/| |  | |   | |_| |  _|   / _ \ | | \___ \| |_| |  _| |  _|   | |    ##
+##     \ V /  | || |  | |  | |___|  _  | |___ / ___ \| |  ___) |  _  | |___| |___  | |    ##
+##      \_/  |___|_|  |_|   \____|_| |_|_____/_/   \_\_| |____/|_| |_|_____|_____| |_|    ##
+##                                                                                        ##
+############################################################################################
+############################################################################################
+
+
+# --- GENERAL INFORMATION ------------------------------------------------------------------
+Author:                 Artur Pyszczuk (apyszczuk@gmail.com)
+Licence:                WTFPL V2 (https://en.wikipedia.org/wiki/WTFPL)
+Source:                 https://github.com/apyszczuk/vim-cheatsheet
+
+
+
+# --- SHORTCUT EXPLANATION -----------------------------------------------------------------
+<C-n>                   - CTRL-n
+<Space>                 - Space
+<Tab>                   - Tab
+<S-F12>                 - SHIFT-F12
+<A-F12>                 - ALT-F12
+<CR>                    - Enter
+
+
+
+# --- REMARKS ------------------------------------------------------------------------------
+inner                   - means that action is done without either leading or trailing white
+                          space which is counted as element when count is given to the
+                          action (general description is always boring, take a look at the
+                          examples marked as inner)
+
+outer                   - means that action is done with leading or trailing white space
+                          which is not counted as element when count is given to the action
+
+
+
+# --- SAVE/EXIT/OPEN -----------------------------------------------------------------------
+# TERMINAL ---------------------------------------------------------------------------------
+$ vim                   - open vim from command line
+$ vim fn                - open file fn in vim
+$ vim -R fn             - open file fn in vim in read only mode
+
+# NORMAL MODE ------------------------------------------------------------------------------
+:w                      - save file with already known name
+:w fn                   - save file with new name fn
+:q                      - quit if no changes, fails otherwise
+:q!                     - quit without writing changes
+:qa                     - close all files and quit, fails if any file is modified
+:qa!                    - close all files without writing changes (be careful!)
+:wq                     - save file and quit vim
+:e fn                   - open file fn
+:e! fn                  - open file fn discarding changes
+:tabedit fn             - open file fn in a new tab
+
+
+
+# --- HELP ---------------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:help                   - open help
+:help command           - open help of command
+:help a<TAB>            - go through possible commands
+:tab help command       - open help of command in a new tab
+
+
+
+# --- MODES --------------------------------------------------------------------------------
+(to enter NORMAL you can be in any mode)
+Normal                  - <Esc>
+(to enter following modes you need to be in NORMAL mode)
+Insert                  - i, a, o, O, S, etc.
+Visual                  - v
+Visual Line             - <S-v>
+Visual Block            - <C-v>
+Replace                 - R
+
+
+
+# --- MOVING -------------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+k           2k          - go one / two line(s) up
+gk          2gk         - go one / two line(s) up (differs when line wraps)
+j           5j          - go one / five line(s) down
+gj          5gj         - go one / five line(s) down (differs when line wraps)
+h           5h          - go one / five character(s) left
+l           5l          - go one / five character(s) right
+-           2-          - go one / two line(s) up stopping at first non-blank character
++           2+          - go one / two line(s) down stopping at first non-blank character
+gg          5gg         - go to the first / fifth line of a file
+G           5G          - go to the last / fifth line of a file
+:5<CR>                  - go to the fifth line of a file (does not modify jumplist which is
+                          different from 5G)
+CTRL-o      2CTRL-o     - go to one / two position(s) before current one (:ju for jumplist)
+CTRL-i      3CTRL-i     - go to one / three position(s) after current one (CTRL-o and CTRL-i
+                          work like go and back)
+w           2w          - go to the begin of one / two word(s) forward
+W           2W          - go to the begin of one / two WORD(s) forward (for more info what
+                          word and WORD are see :help WORD)
+                          In short: hello,what's up
+                                    |-w->|
+                                    |-----W----->|
+e           2e          - go to the end of one / two word(s) forward
+E           2E          - go to the end of one / two WORD(s) forward
+b           2b          - go to the begin of one / two word(s) backward
+B           2B          - go to the begin of one / two WORD(s) backward
+ge          2ge         - go to the end of one / two word(s) backward
+gE          2gE         - go to the end of one / two WORD(s) backward
+CTRL-g                  - show current location in a file (filename, line, percent, column)
+1CTRL-g     2CTRL-g     - like above except full path to filename is shown, if 2 then buffer
+                          number is shown as well
+gCTRL-g                 - show current location in a file (more info)
+0                       - go to the first character in a line (even if whitespace)
+^                       - go to the first non-blank character in a line
+$           2$          - go to the last character in a current / next line (even if
+                          whitespace)
+g_          2g_         - go to the last non-blank character in a current / next line
+)           2)          - go to one / two sentence(s) forward
+(           2(          - go to one / two sentence(s) backward
+}           2}          - go to one / two paragraph(s) forward
+{           2{          - go to one / two paragraph(s) backward
+H           2H          - go to the first / second line from top
+M                       - go to the middle of the screen
+L           2L          - go to the first / second line from bottom
+CTRL-f      2CTRL-f     - go one / two page(s) down (forward)
+CTRL-b      2CTRL-b     - go one / two page(s) up (backward)
+CTRL-d      2CTRL-d     - go half page down (forward) / set scroll option to two and go
+                          two lines down, next time CTRL-d is used you will go two lines
+                          down
+CTRL-u      2CTRL-u     - go half page up (backward) / set scroll option to two and go two 
+                          lines up, next time CTRL-u is used you will go two lines up
+CTRL-e      2CTRL-e     - go one / two line(s) down without moving a cursor
+CTRL-y      2CTRL-y     - go one / two line(s) up without moving a cursor
+z.          30z.        - make current / 30th line to be in the middle of the screen
+                          (cursor at first non-blank character)
+zz          30zz        - make current / 30th line to be in the middle of the screen
+                          (cursor stays at the same column)
+z<CR>       30z<CR>     - make current / 30th line to be at the top of the screen (cursor
+                          at first non-blank character)
+zt          30zt        - make current / 30th line to be at the top of the screen (cursor
+                          stays at the same column)
+z-          30z-        - make current / 30th line to be at the bottom of the screen
+                          (cursor at first non-blank character)
+zb          30zb        - make current / 30th line to be at the bottom of the screen
+                          (cursor stays at the same column)
+mx                      - create mark named x at some position
+`x                      - go to mark named x (the same position)
+'x                      - go to first non-blank character in line where mark x was taken
+''                      - go to the line where cursor was before jump
+``                      - go to previous location (before jump)
+'.                      - go to line where last modification was made
+`.                      - go to location of last modification
+|           2|          - go to first / second column of line
+fx          2fx         - go to the first / second occurrence (right side of a cursor) of
+                          x in current line
+Fz          4Fz         - go to the first / fourth occurrence (left side of a cursor) of z
+                          in current line
+tx          3tx         - go to one character before first / third occurrence (right side
+                          of a cursor) of x in current line
+Tf          3Tf         - go to one character before first / third occurrence (left side
+                          of a cursor) of f in current line
+;           ,           - repeat f, F, t, T commands (forward / backward)
+10%                     - go to 10% in the file
+
+
+
+# --- SELECT -------------------------------------------------------------------------------
+# VISUAL MODE ------------------------------------------------------------------------------
+l           5l          - select one / five character(s) from right side
+h           5h          - select one / five character(s) from left side
+k           2k          - select from current column until the same column in one / two
+                          line(s) above
+j           2j          - select from current column until the same column in one / two
+                          line(s) below
+w           2w          - select one / two word(s) (forward) (difference between w, e, b,
+                          ge in this context is the same as in the movements)
+W           2W          - select one / two WORD(s) (forward)
+e           2e          - select one / two word(s) (forward)
+E           2E          - select one / two WORD(s) (forward)
+b           2b          - select one / two word(s) (backward)
+B           2B          - select one / two WORD(s) (backward)
+ge          2ge         - select one / two word(s) (backward)
+gE          2gE         - select one / two WORD(s) (backward)
+aw          2aw         - select one / two word(s) (outer)
+aW          2aW         - select one / two WORD(s) (outer)
+iw          2iw         - select one / two word(s) (inner)
+iW          2iW         - select one / two WORD(s) (inner)
+as          2as         - select one / two sentence(s) (outer)
+is          2is         - select one / two sentence(s) (inner)
+ap          2ap         - select one / two paragraph(s) (outer)
+ip          2ip         - select one / two paragraph(s) (inner)
+$           2$          - select up to end of current / next line
+0                       - select up to begin of current line
+^                       - select up to first non-blank character
+25|                     - select from current cursor position to 25th column
+a[ or a]    i[ or i]    - select a block [...], including / excluding []
+a( or a)    i( or i)    - select a block (...), including / excluding ()
+a{ or a}    i{ or i}    - select a block {...}, including / excluding {}
+a< or a>    i< or i>    - select a block <...>, including / excluding <>
+at          it          - select a block <tag></tag>, including / excluding <tag></tag>
+a"          i"          - select a block "...", including / excluding ""
+a'          i'          - select a block '...', including / excluding ''
+a`          i`          - select a block `...`, including / excluding ``
+o                       - put cursor on the other side of a selection
+gv                      - restore previous selection
+
+
+
+# --- EDIT ---------------------------------------------------------------------------------
+# --- EDIT:INSERT --------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+i                       - start editing at current cursor position
+I                       - start editing at the beginning of a current line
+a                       - start editing one character after cursor
+A                       - start editing at the end of a current line
+o                       - add blank line below the cursor
+O                       - add blank line above the cursor
+ea                      - append at the end of a word
+10oXXX                  - input string 'XXX' in the new line and copy and paste it nine
+                          times (each in new line)
+3iY_                    - input string 'Y_' in the current line and copy and paste it two
+                          times, so the result is Y_Y_Y_
+
+# INSERT MODE ------------------------------------------------------------------------------
+CTRL-T                  - insert one shiftwidth (whole line)
+CTRL-I                  - insert one tab (from cursor position)
+CTRL-M      CTRL-J      - insert new line
+CTRL-R"                 - insert content of register " (so copy something and do this)
+
+
+# --- EDIT:DELETE --------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+x           4x          - delete one / four character(s) forward
+X           4X          - delete one / four character(s) backward
+dw          d2w         - delete from current position to the beginning of first / second
+                          word forward
+dW          d2W         - delete from current position to the beginning of first / second
+                          WORD forward
+de          d2e         - delete from current position to the end of a current / next word
+dE          d2E         - delete from current position to the end of a current / next WORD
+d$ or D     d2$ or 2D   - delete from current position to the end of a current / next line
+d^                      - delete from current position to the beginning of a line
+dd          2dd         - delete current / current and next line
+daw         2daw        - delete one / two word(s) (outer)
+diw         2diw        - delete one / two word(s) (inner)
+daW         2daW        - delete one / two WORD(s) (outer)
+diW         2diW        - delete one / two WORD(s) (inner)
+das         2das        - delete one / two sentence(s) (outer)
+dis         2dis        - delete one / two sentence(s) (inner)
+da( or da)              - delete a block (...), including ()
+di( or di)              - delete a block (...), excluding ()
+dap         2dap        - delete one / two paragraph(s) (outer)
+dip         2dip        - delete one / two paragraph(s) (inner)
+da[ or da]              - delete a block [...], including []
+di[ or di]              - delete a block [...], excluding []
+da{ or da}              - delete a block {...}, including {}
+di{ or di}              - delete a block {...}, excluding {}
+da< or da>              - delete a block <...>, including <>
+di< or di>              - delete a block <...>, excluding <>
+dat                     - delete a block <tag></tag>, including <tag></tag>
+dit                     - delete a block <tag></tag>, excluding <tag></tag>
+df>         d2f>        - delete until and including first / second > character
+dt>         d2t>        - delete until and excluding first / second > character
+dG          d6G         - delete until end of a file / sixth line (either backward or
+                          forward)
+dgg         d6gg        - delete until start of a file / sixth line (either backward of
+                          forward)
+J           3J          - delete one / three line break(s) (join two / three lines)
+gJ          3gJ         - delete one / three line break(s) (join two / three lines, do not
+                          add space between joined lines)
+
+# VISUAL MODE ------------------------------------------------------------------------------
+iwd         2iwd        - delete one / two word(s) (inner)
+awd         2awd        - delete one / two word(s) (outer)
+iWd         2iWd        - delete one / two WORD(s) (inner)
+aWd         2aWd        - delete one / two WORD(s) (outer)
+
+# INSERT MODE ------------------------------------------------------------------------------
+CTRL-H                  - remove last character, just like backspace
+CTRL-W                  - remove last word
+CTRL-U                  - remove current line
+CTRL-D                  - remove one shitftwidth (whole line)
+
+
+# --- EDIT:CHANGE --------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+cc          2cc         - delete current / current and next line and start editing
+C           2C          - delete from current position to the end of this / next line and
+                          start editing
+c$ or C     2c$ or 2C   - delete from current position to the end of a current / next line
+                          and start editing
+c^                      - delete from current position to the beginning of a line and start
+                          editing
+ce          2ce         - delete from current position to the end of a current / next word
+                          and start editing
+cw          2cw         - delete from current position to the end of a current / next word
+                          and start editing (just like ce)
+cb          2cb         - delete from current position to the beginning of current /
+                          previous word
+cge         2cge        - delete from current position to the end of one / two word(s)
+                          before and start editing
+cE          2cE         - delete from current position to the end of a current / next WORD
+                          and start editing
+cW          2cW         - delete from current position to the end of a current / next WORD
+                          and start editing (just like ce)
+cB          2cB         - delete from current position to the beginning of current /
+                          previous WORD
+cgE         2cgE        - delete from current position to the end of one / two WORD(s)
+                          before and start editing
+ciw         2ciw        - delete word under the cursor (inner) / and next one and start
+                          editing
+caw         2caw        - delete word under the cursor (outer) / and next one and start
+                          editing
+cf>         2cf>        - delete until first / second and including > forward and start
+                          editing
+cF<         2cF<        - delete until first / second and including < backward and start
+                          editing
+cis         2cis        - delete one / two sentence(s) (inner) and start editing
+cas         2cas        - delete one / two sentence(s) (outer) and start editing
+cip         2cip        - delete one / two paragraph(s) (inner) and start editing
+cap         2cap        - delete one / two paragraph(s) (outer) and start editing
+~           4~          - change case of one / four character(s) under the cursor / and
+                          forward characters
+
+
+# --- EDIT:SUBSTITUTE ----------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+s           5s          - delete one / five character(s) and start editing
+S           4S          - delete one / four whole line(s) and start editing
+
+
+# --- EDIT:REPLACE -------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+rx          5rx         - replace current / five character(s) with character x
+R                       - activate Replace mode
+gR                      - activate Virtual Replace mode
+
+
+# --- EDIT:AUTO COMPLETION -----------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+CTRL-n                  - activate word completion and after it is activated go for next
+                          match placing appropriate in the window. What is taken for search
+                          depends on the configuration, it can be all, it can be only what
+                          is in current buffer, and so on, so to get more information, take
+                          a look at :help ins-completion
+CTRL-p                  - after word completion is activated go to previous match
+CTRL-w                  - delete completed word
+CTRL-e                  - end word completion and undo inserting word
+CTRL-y                  - accept current match selection and hide completion list
+<Space> or <Tab>        - accept current match selection and insert space or tab after
+                          selected word
+<Up>                    - basically just like <C-n> but do not place selected match in the
+                          window
+<Down>                  - basically just like <C-p> but do not place selected match in the
+                          window
+LoCTRL-n                - activate word completion starting from letters Lo, which means
+                          show all words staring with Lo
+<Enter>                 - depend, if <Up> or <Down> were used to select appropriate match,
+                          then <Enter> inserts this match, otherwise <Enter> inserts line
+                          break
+
+
+
+# --- UNDO/REDO ----------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+u           2u          - undo one / two change(s)
+U                       - undo all changes from current line
+CTRL-R      2CTRL-R     - undo one / two undo(s) (redo)
+
+
+
+# --- COPY/PASTE ---------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+p           4p          - paste one / four times after the cursor
+P           4P          - paste one / four times before the cursor
+yw          y2w         - copy from current position to the beginning of one / two word(s)
+                          forward (y from yank)
+yW          y2W         - copy from current position to the beginning of one / two WORD(s)
+                          forward
+ye          y3e         - copy from current position to the first / third end of word
+                          forward
+yE          y3E         - copy from current position to the first / third end of WORD
+                          forward
+yb          y2b         - copy from current position to the first / second begin of word
+                          backward
+yB          y2B         - copy from current position to the first / second begin of WORD
+                          backward
+yge         y2ge        - copy from current position to the first / second end of word
+                          backward
+ygE         y2gE        - copy from current position to the first / second end of WORD
+                          backward
+y$                      - copy from current position to the end of current line
+y^                      - copy from current position to the beginning of a current line
+                          (without whitespace in front)
+y0                      - copy from current position to the beginning of a current line
+                          (with whitespace in front)
+Y or yy     2Y or 2yy   - copy one / two whole line(s)
+*p                      - paste from clipboard (only if compiled with clipboard support)
+*y                      - copy to clipboard (only if compiled with clipboard support)
+:CTRL-r"                - insert what has been copied in command mode
+
+# INSERT MODE ------------------------------------------------------------------------------
+CTRL-r"                 - insert what has been copied
+
+
+
+# --- SEARCH -------------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+[I                      - show lines that has word under the cursor
+
+
+# --- SEARCH:TOWARDS END OF DOCUMENT -------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+/str                    - search for a string 'str' (word or part of a word)
+n           5n          - go to next / fifth occurrence
+N           3N          - go to previous / third occurrence
+*           2*          - search for next / second word under the cursor
+g*          2g*         - search for next / second word (or part of it) under the cursor
+/xx$                    - search for a string 'xx' which ends the line
+/^yy                    - search for a string 'yy' which starts the line
+/^bleh$                 - search for a word 'bleh' which is the only one in a line
+/b.a                    - search for a string which starts with b followed by any
+                          character followed by a, so: bla, blank, bna are found
+/ter\.                  - search for a string 'ter.'
+/ter\/                  - search for a string 'ter/'
+
+
+# --- SEARCH:TOWARDS BEGIN OF DOCUMENT -----------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+?inc                    - search for a string 'inc' (word or part of a word)
+n           5n          - go to next / fifth occurrence
+N           3N          - go to previous / third occurrence
+#           2#          - search for a next / second word under the cursor
+g#          2g#         - search for next / second word (or part of it) under the cursor
+?xx$                    - search for a string 'xx' which ends the line
+?^yy                    - search for a string 'yy' which starts the line
+?^bleh$                 - search for a word 'bleh' which is the only one in a line
+?b.a                    - search for a string which starts with b followed by any
+                          character folowed by a, so: bla, blank, bna are found
+?ter\.                  - search for a string 'ter.'
+?ter\/                  - search for a string 'ter/'
+
+
+# --- SEARCH:OPTIONS -----------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:nohl                   - turn off highlighting of a searched pattern (next search will
+                          activate highlighting again)
+:set nohls              - turn off highlighting of a searched pattern (until it is manually
+                          turned on again, see hls)
+:set hls                - turn on highlighting of a searched pattern
+:set hls!               - toggle highlighting of a searched pattern
+:set ignorecase         - ignore case when searching
+:set noignorecase       - do not ignore case when searching
+:set incsearch          - turn on displaying match while you are still typing
+:set noincsearch        - turn off displaying match while you are still typing
+
+
+
+# --- SUBSTITUTION -------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:s/x/y      :2s/x/y     - replace first occurrence of 'x' into 'y' in current / second line
+:s/x/y/c    :2s/x/y/c   - replace first occurrence of 'x' into 'y' in current / second line
+                          with confirmation
+:s/x/y/g    :2s/x/y/g   - replace all occurrences of 'x' into 'y' in current / second line
+:s/x/y/gc   :2s/x/y/gc  - replace all occurrences of 'x' into 'y' in current / second line
+                          with confirmation
+:3,9s/x/y               - replace first occurrence (in each line) of 'x' into 'y' in lines
+                          3 to 9
+:3,9s/x/y/c             - replace first occurrence (in each line) of 'x' into 'y' in lines
+                          3 to 9 with confirmation
+:3,9s/x/y/g             - replace all occurrences (in each line) of 'x' into 'y' in lines
+                          3 to 9
+:3,9s/x/y/gc            - replace all occurrences (in each line) of 'x' into 'y' in lines
+                          3 to 9 with confirmation
+:%s/x/y                 - replace first occurrence (in each line) of 'x' into 'y' in whole
+                          file
+:%s/x/y/c               - replace first occurrence (in each line) of 'x' into 'y' in whole
+                          file with confirmation
+:%s/x/y/g               - replace all occurrences of 'x' into 'y' in whole file
+:%s/x/y/gc              - replace all occurrences of 'x' into 'y' in whole file with
+                          confirmation
+:&          :s          - repeat last substitute command without the same flags
+:&&                     - repeat last substitute command with the same flags (like g, c)
+:%s/x/y/n               - show how many replacement would be done with this command
+:%s/x/y/gn              - show how many replacement would be done with this command (can
+                          differ from previous one)
+:%s/x//g                - remove all occurrences of 'x' from the whole file
+:%s/x//gn               - show how many occurrences of 'x' would be removed
+
+# VISUAL MODE ------------------------------------------------------------------------------
+:'<,'>s/x/y/g           - replace all occurences of 'x' into 'y' in selected text.
+                          Remark: select text using Visual mode and then press ':', you will
+                          see :'<,'>
+
+
+
+# --- EXTERNAL COMMANDS --------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:!ls                    - list directory
+:!date                  - show date
+
+
+
+# --- READ FILE OR EXTERNAL COMMAND INTO VIM -----------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:read !date             - put current date to a place where cursor is
+:read !date \+\%F       - put current date to a place where cursor is (different form)
+:r !ls -l               - put the list of directory to a place where cursor is
+:r f.txt                - put content of f.txt into current buffer
+
+
+
+# --- SHIFTING TEXT ------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+>>          3>>         - shift current / three line(s) one tab right
+<<          3<<         - shift current / three line(s) one tab left
+:2,5>       :2,5>>      - shift lines 2 to 5 one / two tab(s) right
+:2,5<<      :2,5<<<<    - shift lines 2 to 5 two / four tabs left
+
+# INSERT MODE ------------------------------------------------------------------------------
+CTRL-t                  - shift current line one tab right
+CTRL-d                  - shift current line one tab left
+
+# VISUAL MODE ------------------------------------------------------------------------------
+>                       - shift selected lines one tab right
+<                       - shift selected lines one tab left
+
+
+
+# --- WINDOWS ------------------------------------------------------------------------------
+# --- WINDOWS:CREATE WINDOW HORIZONTALLY ---------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:split      CTRL-ws     - create new window horizontally, both editing the same file
+:split fn.txt           - create new window horizontally, new window edits fn.txt
+:10 split fn.txt        - create new window horizontally, new window edits fn.txt and it has
+                          10 rows height
+:new                    - create new window horizontally, new window edits an empty file
+:10 new                 - create new window horizontally, new window edits an empty file and
+                          it has 10 rows height
+:sview fn.txt           - create new window horizontally, new window opens fn.txt for
+                          reading only
+:10 sview fn.txt        - create new window horizontally, new window opens fn.txt for
+                          reading only and it has 10 rows height
+
+
+# --- WINDOWS:CREATE WINDOW VERTICALLY -----------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:vsplit     CTRL-wv     - create new window vertically, both editing the same file
+:vsplit fn.txt          - create new window vertically, new window edits fn.txt
+:10 vsplit fn.txt       - create new window vertically, new window edits fn.txt and it has
+                          10 columns width
+:vnew                   - create new window vertically, new window edits an empty file
+:10 vnew                - create new window vertically, new window edits an empty file and
+                          it has 10 columns width
+:vert sview fn.txt      - create new window vertically, new window opens fn.txt for reading
+                          only
+
+
+# --- WINDOWS:MOVE AROUND ------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+CTRL-ww     2CTRL-ww    - move cursor to next / second window
+CTRL-wj     3CTRL-wj    - move cursor to one / three window(s) below
+CTRL-wk     2CTRL-wk    - move cursor to one / two window(s) above
+CTRL-wh     2CTRL-wh    - move cursor to one / two window(s) left
+CTRL-wl     3CTRL-wl    - move cursor to one / three window(s) right
+CTRL-wt                 - move cursor to top left window
+CTRL-wp                 - move cursor to last window
+CTRL-wb                 - move cursor to bottom right window
+
+
+# --- WINDOWS:CLOSE WINDOW -----------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+CTRL-wq     :q          - close the window
+:only                   - close all windows except current one
+
+
+# --- WINDOWS:MOVE WINDOW ------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+CTRL-wr                 - rotate windows downwards or rightwards
+CTRL-wR                 - rotate windows upwards or leftwards
+CTRL-wx                 - exchange current window with next one
+CTRL-wK                 - move current window to the top
+CTRL-wJ                 - move current window to the bottom
+CTRL-wH                 - move current window to the far left
+CTRL-wL                 - move current window to the far right
+CTRL-wT                 - move current window to a new tab
+
+
+# --- WINDOWS:CHANGING SIZE ----------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+CTRL-w=                 - set optimal sizes for all windows (height and width)
+CTRL-w_                 - set maximum height for current window
+CTRL-w|                 - set maximum width for current window
+CTRL-w+     CTRL-w10+   - increase current window height by 1 / 10 row(s)
+CTRL-w-     CTRL-w10-   - decrease current window height by 1 / 10 row(s)
+CTRL-w>     CTRL-w10>   - increase current window width by 1 / 10 column(s)
+CTRL-w<     CTRL-w10<   - decrease current window width by 1 / 10 column(s)
+z2<CR>      z10<CR>     - set current window height to 2 / 10 rows 
+:vert res 10            - set current window width to 10 columns
+
+
+
+# --- TABS ---------------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:tabnew                 - create new tab
+:$tabnew    :0tabnew    - create new tab at the end / beginning of all tabs
+:+tabnew    :+2tabnew   - create new tab two / three tab(s) after current one
+:-tabnew    :-2tabnew   - create new tab one / two tab(s) before current one
+:tabnew fn.txt          - create new tab associated with fn.txt file
+:tabedit fn.txt         - open fn.txt file for edit in a new tab
+:tab help :tab          - open help for :tab in a new tab
+:0tab help  :$tab help  - open help in a new tab at the beginning / end of all tabs
+:tabc                   - close current tab
+:tabo                   - close all other tabs
+:tabn       gt          - go to next tab
+:tabp       gT          - go to previous tab
+:tabr                   - go to first tab
+:tabl                   - go to last tab
+:tabs                   - list of all open tabs
+1gt         3gt         - go to first / third tab
+:tabm       :tabm0      - move current tab to be the last / first one
+:-tabm      :-2tabm     - move current tab one / two tab(s) left
+:+tabm      :+2tabm     - move current tab one / two tab(s) right
+g<Tab>                  - go to last accessed tab
+
+
+
+# --- DIGRAPHS -----------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:digraphs               - show supported characters
+
+# INSERT MODE ------------------------------------------------------------------------------
+CTRL-kxy                - x and y are characters read from :digraphs, so to get character
+                          λ x = l, y = *, so CTRL-kl*
+
+
+
+# --- UNICODE ------------------------------------------------------------------------------
+# INSERT MODE ------------------------------------------------------------------------------
+CTRL-vu2713             - insert ✓ unicode character
+CTRL-vu20ac             - insert € unicode character
+
+
+
+# --- FOLD ---------------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+zc                      - close fold at cursor position
+zC                      - close all folds at cursor position
+zo                      - open fold at cursor position
+zO                      - open all folds at cursor position
+zM                      - close all folds
+zR                      - open all folds
+[z                      - move to the beginning of current open fold
+]z                      - move to the end of current open fold
+zj                      - move to the beginning of next fold
+zk                      - move to the end of previous fold
+
+
+
+# --- REGISTER -----------------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+:reg        :reg 1      - show content of all / 1st register(s)
+Y           ""Y         - copy current line to unnamed (default) (") register
+p           ""p         - paste content from unnamed (default) register
+"aY         "zY         - copy current line to register a / z
+"ap         "zp         - paste content from register a / z
+"_dd                    - delete current line and put it in the black hole register which
+                          means it will not be accessible from unnamed register "".
+                          Compare it with dd and then p.
+"/p                     - paste last search pattern
+"%p                     - paste name of the current file
+
+
+
+# --- PROGRAMMING STUFF --------------------------------------------------------------------
+# NORMAL MODE ------------------------------------------------------------------------------
+[i                      - find identifier under the cursor
+[CTRL-I                 - go to identifier found by [i
+[I                      - list all lines containing identifier under the cursor
+CTRL-]      CTRL-T      - go to the tag under the cursor / go back
+gd                      - go to the definition of locally created object
+gD                      - go to the definition of globally created object
+gf                      - open a file under the cursor
+CTRL-wgf                - open a file under the cursor in a new tab
+%                       - matching parentheses (), {}, []
+[{          ]}          - go to the beginning / end of code block {} from inside block
+[(          ])          - go to the beginning / end of code block () from inside block
+[*          [/          - go to the beginning of C++ style comment
+]*          ]/          - go to the end of C++ style comment
